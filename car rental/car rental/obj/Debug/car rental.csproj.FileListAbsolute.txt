@@ -1,0 +1,7 @@
+C:\Users\ING\Desktop\car-rental-software-carlosElGfe\car rental\car rental\bin\Debug\car rental.exe.config
+C:\Users\ING\Desktop\car-rental-software-carlosElGfe\car rental\car rental\bin\Debug\car rental.exe
+C:\Users\ING\Desktop\car-rental-software-carlosElGfe\car rental\car rental\bin\Debug\car rental.pdb
+C:\Users\ING\Desktop\car-rental-software-carlosElGfe\car rental\car rental\obj\Debug\car rental.csprojResolveAssemblyReference.cache
+C:\Users\ING\Desktop\car-rental-software-carlosElGfe\car rental\car rental\obj\Debug\car rental.csproj.CoreCompileInputs.cache
+C:\Users\ING\Desktop\car-rental-software-carlosElGfe\car rental\car rental\obj\Debug\car rental.exe
+C:\Users\ING\Desktop\car-rental-software-carlosElGfe\car rental\car rental\obj\Debug\car rental.pdb
