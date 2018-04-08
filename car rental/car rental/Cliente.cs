@@ -16,16 +16,6 @@ namespace car_rental
             nombre = nombre1;
 
         }
-        public Arrendar arrendar(Sucursal sucursal, Vehiculo vehiculo, List<Accesorio> accesorios)
-        {
 
-            Arrendar arrendar1 = new Arrendar(accesorios, this, sucursal, vehiculo);
-            return arrendar1;
-
-
-
-
-
-        }
     }
 }

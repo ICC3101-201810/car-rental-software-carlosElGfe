@@ -9,9 +9,11 @@ namespace car_rental
     public class Accesorio
     {
         public string nombre;
-        public Accesorio(string nombre1)
+        public int stock;
+        public Accesorio(string nombre1, int stock1)
         {
             nombre = nombre1;
+            stock = stock1;
         }
     }
 }

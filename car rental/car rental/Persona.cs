@@ -13,18 +13,6 @@ namespace car_rental
         {
             licencia = licencia1;
         }
-        public Arrendar arrendar(Sucursal sucursal, Vehiculo vehiculo, List<Accesorio> accesorios)
-        {
-            if (this.licencia)
-            {
-                Arrendar arrendar1 = new Arrendar(accesorios, this, sucursal, vehiculo);
-                return arrendar1;
-            }
-            else
-            {
-                Arrendar arriendofalso = new Arrendar(accesorios, this, sucursal, vehiculo);
-                return arriendofalso;
-            }
-        }
+        
     }
 }
