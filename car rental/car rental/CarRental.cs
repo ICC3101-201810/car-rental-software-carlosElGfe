@@ -26,7 +26,7 @@ namespace car_rental
             List<Vehiculo> vehiculos = new List<Vehiculo>();
             while (true)
             {
-                Console.WriteLine("ingrese vehiculos por tipo y escriba listo para detenerse");
+                Console.WriteLine("ingrese vehiculos por tipo, uno por uno, y escriba listo para detenerse \n ej:  auto   5");
                 string opcion = Console.ReadLine();
                 if (opcion == "listo")
                 {
@@ -88,8 +88,24 @@ namespace car_rental
             
             
              }
-        
 
+        public void mostrarsucursales()
+        {
+            foreach (Sucursal s in this.sucursales)
+            {
+                Console.WriteLine(s.nombre);
+            }
+        }
+        public void mostrarvehiculos(string nombre)
+        {
+            foreach (Sucursal item in this.sucursales)
+            {
+                foreach (Vehiculo vehiculo in item.vehiculos)
+                {
+                    Console.WriteLine(vehiculo.tipo + vehiculo.stock) ;
+                }
+            }
+        }
         public void crearArriendo(string tipo, string nombre)
         {
             foreach (Sucursal sucursal in this.sucursales)
