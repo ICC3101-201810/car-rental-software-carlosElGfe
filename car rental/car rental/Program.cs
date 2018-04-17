@@ -20,7 +20,8 @@ namespace car_rental
             Console.WriteLine("Hola, bienvenido a la agencia de RENT A CAR SHILE");
             while (true)
                 {
-                Console.WriteLine(" ingrese su opccion \n opcion 1 = agregar sucursal \n opcion 2 = agregar arriendo \n opcion 3 = simular dia sucursal \n opcion 4 = mostrar sucursales \n opcion 5 = mostras vehiculos en sucursal \n opcion 6 = salir del programa"); 
+                string msg2 = " ingrese su opccion \n opcion 1 = agregar sucursal \n opcion 2 = agregar arriendo \n opcion 3 = simular dia sucursal \n opcion 4 = mostrar sucursales \n opcion 5 = mostras vehiculos en sucursal \n opcion 7 = crear arriendo \n opcion 8 = recibir vehiculo \n opcion 6 = salir del programa";
+                carRental.Confirmation2(msg2);
                 string opcion = Console.ReadLine();
                 if (opcion == "1")
                 {
@@ -199,9 +200,31 @@ namespace car_rental
                     break;
 
                 }
-                if (opcion != "1" && opcion != "2" && opcion != "3" && opcion != "4" && opcion != "5" && opcion != "6")
+                if (opcion == "7")
                 {
-                    Console.WriteLine("opcion ingresada no valida");
+                    carRental.Confirmation2("ingrese nombre del cliente a que quiere arrendar");
+                    string nombrec = Console.ReadLine();
+                    if (carRental.reconocerCliente(nombrec))
+                    {
+                        carRental.agregarCliente(nombrec);
+                    }
+                    carRental.Confirmation2("ingrese tipo de vehiculo a arrendar");
+                        string tipoo = Console.ReadLine();
+                        carRental.crearArriendo(tipoo, nombrec);
+                    
+                }
+                if (opcion != "1" && opcion != "2" && opcion != "3" && opcion != "4" && opcion != "5" && opcion != "6" && opcion != "7" && opcion != "8")
+                {
+                    string msg = "opcion ingresada no valida";
+                    carRental.Warning(msg);
+                    Console.Beep();
+                    Console.Beep();
+                }
+                if (opcion == "8")
+                {
+                    carRental.Confirmation2("ingrese tipo de vehiculo a entregar ");
+                    string he =  Console.ReadLine();
+                    carRental.entregarvehiculo(he);
                 }
 
                 }

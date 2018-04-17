@@ -18,19 +18,40 @@ namespace car_rental
             clientes = clientes1;
 
         }
+        public void Confirmation(string message)
+        {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+        public void Confirmation2(string message)
+        {
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+        public void Warning(string message)
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
         public void agregar_sucursal()
         {
-            Console.WriteLine("ingrese nombre sucursal nueva");
+            this.Confirmation2("ingrese nombre sucursal nueva");
             string nombre = Console.ReadLine();
 
             List<Vehiculo> vehiculos = new List<Vehiculo>();
             while (true)
             {
-                Console.WriteLine("ingrese vehiculos por tipo, uno por uno, y escriba listo para detenerse \n ej:  auto   5");
+                this.Confirmation2("ingrese vehiculos por tipo, uno por uno, y escriba listo para detenerse \n ej:  auto   5");
                 string opcion = Console.ReadLine();
                 if (opcion == "listo")
                 {
-                    Console.WriteLine("añadiendo vehiculos");
+                    this.Confirmation("añadiendo vehiculos");
                     break;
                 }
                 else
@@ -46,16 +67,16 @@ namespace car_rental
             List<Accesorio> accesorios  = new List<Accesorio>();
             while (true)
             {
-                Console.WriteLine("ingrese accesorios nombre y escriba listo para detenerse");
+                this.Confirmation2("ingrese accesorios nombre y escriba listo para detenerse");
                 string opcion = Console.ReadLine();
                 if (opcion == "listo")
                 {
-                    Console.WriteLine("añadiendo accesorios");
+                    this.Confirmation("añadiendo accesorios");
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("ingrese stock ,maximo 32 int");
+                    this.Confirmation2("ingrese stock ,maximo 32 int");
                     int stock = Convert.ToInt32(Console.ReadLine());
                     Accesorio accesorio = new Accesorio(opcion, stock);
                     accesorios.Add(accesorio);
@@ -65,25 +86,28 @@ namespace car_rental
             }
             Sucursal suc = new Sucursal(vehiculos, nombre, accesorios);
             this.sucursales.Add(suc);
-            Console.WriteLine("sucursal añadida");
+            this.Confirmation("sucursal añadida");
+            Console.Beep();
 
 
         }
             public void agregarCliente(string nombre)
              {
-            Console.WriteLine("insertar tipo de cliente, ej;\n persona\n organizacion \n institucion");
+            this.Confirmation2("insertar tipo de cliente, ej;\n persona\n organizacion \n institucion");
             string tipo = Console.ReadLine();
             if (tipo ==  "persona")
             {
-                Console.WriteLine("persona creada con licencia para poder ingresar a la base de datos");
+                this.Confirmation("persona creada con licencia para poder ingresar a la base de datos");
                 Persona persona = new Persona(true,tipo,nombre);
                 this.clientes.Add(persona);
+                Console.Beep();
             }
             if (tipo == "organizacion" || tipo == "institucion")
             {
-                Console.WriteLine("cada empresa viene con su autorizacion para arrendar para poder ingresar a la base de datos");
+                this.Confirmation("cada empresa viene con su autorizacion para arrendar para poder ingresar a la base de datos");
                 OrganizacionInstitucion org = new OrganizacionInstitucion(true,tipo,nombre);
                 this.clientes.Add(org);
+                Console.Beep();
             }
             
             
@@ -94,6 +118,7 @@ namespace car_rental
             foreach (Sucursal s in this.sucursales)
             {
                 Console.WriteLine(s.nombre);
+                Console.Beep();
             }
         }
         public void mostrarvehiculos(string nombre)
@@ -103,50 +128,100 @@ namespace car_rental
                 foreach (Vehiculo vehiculo in item.vehiculos)
                 {
                     Console.WriteLine(vehiculo.tipo + vehiculo.stock) ;
+                    Console.Beep();
                 }
             }
         }
-        public void crearArriendo(string tipo, string nombre)
+        public Arrendar crearArriendo(string tipo, string nombre)
         {
+            List<Accesorio> accesoriosarriendo = new List<Accesorio>();
             foreach (Sucursal sucursal in this.sucursales)
             {
                 
                 foreach (Vehiculo vehiculo in sucursal.vehiculos)
                 {
-                    if (tipo == vehiculo.tipo)
+                    if (tipo == vehiculo.tipo && vehiculo.stock >= 1)
                     {
+                        
                         vehiculo.stock = vehiculo.stock - 1;
+                        this.Confirmation("se encontro un vehiculo de ese tipo");
+                        if (tipo == "auto")
+                        {
+                            this.Confirmation2("¿desea corrida de asientos extra? si/no");
+                            string corrida = Console.ReadLine();
+                            this.Confirmation2("¿desea maletero XL? si/no");
+                            string maleta = Console.ReadLine();
+                        }
+
                         while (true)
                         {
-                            List<Accesorio> accesoriosarriendo = new List<Accesorio>();
-                            Console.WriteLine("agregar a continuacion accesorios para el auto \n en el caso de no querer accesorios, escribir listo");
+                            
+                            this.Confirmation2("agregar a continuacion accesorios para el auto \n en el caso de no querer accesorios, escribir listo");
                             string nombreAccesorio = Console.ReadLine();
                             if (nombreAccesorio == "listo")
                             {
+                                
                                 foreach (Cliente cliente in this.clientes)
                                 {
                                     if (nombre == cliente.nombre)
                                     {
                                         Arrendar arriendo = new Arrendar(accesoriosarriendo, cliente, sucursal, vehiculo);
                                         this.arriendos.Add(arriendo);
-                                        
+                                        this.Confirmation("arriendo creado");
+                                        Console.Beep();
+                                        return arriendo;
+                                        break;
+
                                     }
                                 }
+                                break;
                             }
+                            Console.WriteLine("comparando con accesorios");
                             foreach (Accesorio ace in sucursal.accesorios)
                             {
                                 if (nombreAccesorio == ace.nombre && ace.stock >= 1)
                                 {
                                     ace.stock = ace.stock - 1;
                                     accesoriosarriendo.Add(ace);
+                                    this.Confirmation("accesorio adjuntado!");
+                                    Console.Beep();
                                 }
                             }
                         }
+                        foreach (Cliente item in this.clientes)
+                        {
+                            foreach (Vehiculo vehiculo2 in sucursal.vehiculos)
+                            {
+                                if (tipo == vehiculo2.tipo)
+                                {
+                                    if (item.nombre == nombre)
+                                    {
+                                        Arrendar arriendonuevo = new Arrendar(accesoriosarriendo, item, sucursal,vehiculo2);
+                                        this.arriendos.Add(arriendonuevo);
+                                        this.Confirmation("Arriendo creado y guardado!");
+                                        return arriendonuevo;
+                                    }
+                                }
+                            }
+                            
+                        }
+                        
 
                     }
                     
                 }
+
             }
+            
+            Vehiculo h = new Vehiculo("h", 4);
+            List<Accesorio> ac = new List<Accesorio>();
+            List<Vehiculo> v = new List<Vehiculo>();
+            Sucursal s = new Sucursal(v, "", ac);
+            Cliente c = new Cliente("persona", "hugo");
+            Arrendar a = new Arrendar(accesoriosarriendo, c, s, h);
+            Console.Beep();
+            Console.Beep();
+            return a;
         }
         public bool reconocerCliente(string nombre)
         {
@@ -174,6 +249,33 @@ namespace car_rental
             return false;
             
         }
+        public void entregarvehiculo(string tipo) {
+            foreach (Arrendar arriendo in this.arriendos)
+            {
+                if (tipo ==  arriendo.vehiculo.tipo)
+                {
+                    foreach (Sucursal s in this.sucursales)
+                    {
+                        foreach (Vehiculo item in s.vehiculos)
+                        {
+                            if (item.tipo == tipo)
+                            {
+                                this.Confirmation("devolviendo auto de forma exitosa...");
+                                item.stock = item.stock - 1;
+                                Console.Beep();
+                                return;
+                                break;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            this.Warning("no se encontro ningun vehiculo, no es necesario devolver");
+            Console.Beep();
+            Console.Beep();
+        }
+
         }
     
 }
